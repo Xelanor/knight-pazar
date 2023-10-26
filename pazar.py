@@ -44,7 +44,7 @@ while 1:
     logging.info("Uygulamayı çalıştırmak için q tuşuna basınız.")
     keyboard.wait("q")
     # price = input("Satmak istediğiniz ürünün fiyatı nedir?: ")
-    price = "399999"
+    price = "799999"
     # time.sleep(1)
     for from_x, from_y, to_x, to_y in coordinates:
         drag_drop(from_x, from_y, to_x, to_y)

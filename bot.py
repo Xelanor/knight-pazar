@@ -39,7 +39,7 @@ def locate_all_tiles(ss, tile, grayscale=False, confidence=0.90):
     #     top_left = (tile.left, tile.top)
     #     bottom_right = (tile.left + tile.width, tile.top + tile.height)
     #     cv.rectangle(img, top_left, bottom_right, (0,255,0), 1)
-    
+
     # cv.imshow("rectangle", img)
     # cv.waitKey()
     return len(tiles)
@@ -49,13 +49,15 @@ def check_inventory(ss):
     close_button = locate_all_tiles(ss, "images/inv_close_button.png")
     if close_button < 1:
         logging.info(f"Close button bulunamadı")
-        pydirectinput.keyDown("i")
+        pydirectinput.press("i")
         time.sleep(1)
         ss = take_screenshot()
-    empty_tiles = locate_all_tiles(ss, "images/empty_item.png")
+        pydirectinput.press("i")
+    empty_tiles = locate_all_tiles(ss, "images/empty_item2.png")
     if empty_tiles < 2:
         logging.info(f"Üzerin dolmak üzere boş yer: {empty_tiles}")
         telegram_bot_sendtext("Üzerin dolmak üzere")
+        time.sleep(60*5)
     else:
         logging.info(f"Üzerinde daha {empty_tiles} yer var")
 
@@ -67,6 +69,7 @@ def check_repair(ss):
     if repair_tiles > 0:
         logging.info("Repair yapman gerekiyor")
         telegram_bot_sendtext("Repair zamanı geldi")
+        time.sleep(60*5)
     else:
         logging.info(f"Repair yapmana gerek yok")
 
@@ -79,6 +82,7 @@ def check_problem(start, empty_tiles):
         telegram_bot_sendtext(
             f"{passed_minutes} dakika geçti fakat hala {empty_tiles} boş yer var"
         )
+        start = datetime.datetime.now()
     else:
         logging.info(f"Bir sıkıntı yok")
 
@@ -94,5 +98,5 @@ if __name__ == "__main__":
         ss = take_screenshot()
         empty_tiles = check_inventory(ss)
         check_repair(ss)
-        check_problem(start, empty_tiles)
+        # check_problem(start, empty_tiles)
         time.sleep(60)

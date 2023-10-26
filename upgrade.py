@@ -84,7 +84,7 @@ def exit_and_login():
     sleep(0.5)
     pydirectinput.press('enter')
     sleep(0.5)
-    pyautogui.typewrite('xelanor100')
+    pyautogui.typewrite('xelanor101')
     sleep(0.10)
     pydirectinput.press('tab')
     pyautogui.typewrite('Xelanor01')
